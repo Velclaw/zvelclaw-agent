@@ -4,5 +4,6 @@
   "repository": "Velclaw/zvelclaw-agent",
   "source": "pages",
   "production": "https://velclaw.cfd",
-  "preview": "https://velclaw.github.io/zvelclaw-agent/"
+  "preview": "https://velclaw.github.io/zvelclaw-agent/",
+  "entry": "pages/index.html"
 }
