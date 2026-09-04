@@ -15,7 +15,7 @@ on:
         required: true
         default: "main"
 
-automatic_concurrency:
+concurrency:
   group: zvelclaw-build-${{ github.ref }}
   cancel-in-progress: true
 
