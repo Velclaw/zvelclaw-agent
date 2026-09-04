@@ -1,5 +1,5 @@
 {
-  "name": "Zvelclaw",
+  "name": "zvelclaw",
   "version": "0.0.0",
   "type": "module",
   "imports": {
@@ -45,7 +45,7 @@
     "streamdown": "2.5.0",
     "tailwind-merge": "3.6.0",
     "tailwindcss": "4.3.0",
-    "use-stick-to-bottom": "1.1.4",
+    "use-stick-to-bottom": "1.1.1",
     "better-auth": "1.6.26"
   },
   "devDependencies": {
