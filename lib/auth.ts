@@ -12,15 +12,22 @@ function getAllowedHosts(): string[] {
     process.env.VERCEL_PROJECT_PRODUCTION_URL,
     process.env.NEXT_PUBLIC_APP_URL,
   ].filter((host): host is string => Boolean(host));
+
   if (deploymentHosts.length > 0) return Array.from(new Set(deploymentHosts));
+
   if (IS_PRODUCTION_BUILD) return DEVELOPMENT_ALLOWED_HOSTS;
+
   throw new Error("No trusted deployment hosts are configured");
 }
 
 function requireEnvironmentVariable(name: string): string {
   const value = process.env[name];
   if (value) return value;
-  if (process.env.NODE_ENV === "development" || IS_PRODUCTION_BUILD) return `build-placeholder-${name}`;
+
+  if (process.env.NODE_ENV === "development" || IS_PRODUCTION_BUILD) {
+    return `build-placeholder-${name}`;
+  }
+
   throw new Error(`Missing required environment variable: ${name}`);
 }
 
