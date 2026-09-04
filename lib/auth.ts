@@ -6,7 +6,6 @@ const IS_PRODUCTION_BUILD = process.env.NEXT_PHASE === "phase-production-build";
 
 function getAllowedHosts(): string[] {
   if (process.env.NODE_ENV === "development") return DEVELOPMENT_ALLOWED_HOSTS;
-
   const deploymentHosts = [
     process.env.VERCEL_URL,
     process.env.VERCEL_BRANCH_URL,
