@@ -1,0 +1,65 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Zvelclaw — AI coding IDE for build, review and fix workflows.">
+  <title>Zvelclaw — AI Coding IDE</title>
+  <style>
+    :root{color-scheme:dark;--bg:#07090d;--panel:#0d1118;--panel2:#101620;--line:#202938;--text:#edf2f7;--muted:#8793a5;--cyan:#6ee7f9;--violet:#a78bfa;--green:#72e6a4;--red:#ff7b8b;--shadow:0 24px 80px rgba(0,0,0,.42)}
+    *{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;background:radial-gradient(circle at 75% -10%,rgba(167,139,250,.13),transparent 34rem),radial-gradient(circle at 10% 15%,rgba(110,231,249,.08),transparent 30rem),var(--bg);color:var(--text);font:14px/1.6 Inter,ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif}body:before{content:"";position:fixed;inset:0;pointer-events:none;opacity:.25;background-image:linear-gradient(rgba(255,255,255,.025) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.025) 1px,transparent 1px);background-size:32px 32px;mask-image:linear-gradient(to bottom,#000,transparent 80%)}a{color:inherit;text-decoration:none}.wrap{width:min(1180px,calc(100% - 36px));margin:auto}.nav{height:72px;display:flex;align-items:center;justify-content:space-between;border-bottom:1px solid rgba(255,255,255,.07)}.brand{display:flex;align-items:center;gap:12px;font-weight:800;letter-spacing:-.03em;font-size:17px}.mark{width:34px;height:34px;border:1px solid #354254;border-radius:10px;display:grid;place-items:center;background:linear-gradient(145deg,#111a25,#090c12);box-shadow:inset 0 1px rgba(255,255,255,.08)}.mark i{display:block;width:12px;height:12px;border-radius:4px;background:linear-gradient(135deg,var(--cyan),var(--violet));box-shadow:0 0 22px rgba(110,231,249,.45)}.navlinks{display:flex;align-items:center;gap:22px;color:var(--muted);font-size:13px}.navlinks a:hover{color:var(--text)}.status{display:flex;align-items:center;gap:7px}.dot{width:7px;height:7px;border-radius:50%;background:var(--green);box-shadow:0 0 12px rgba(114,230,164,.7)}.hero{padding:86px 0 64px;display:grid;grid-template-columns:1.03fr .97fr;gap:58px;align-items:center}.eyebrow{display:inline-flex;align-items:center;gap:8px;padding:6px 10px;border:1px solid #263242;border-radius:999px;color:#aeb9c8;background:rgba(13,17,24,.7);font:12px ui-monospace,SFMono-Regular,Menlo,monospace}.hero h1{font-size:clamp(48px,7vw,82px);line-height:.95;letter-spacing:-.065em;margin:22px 0 20px}.gradient{background:linear-gradient(100deg,var(--text),#b9c8d9 45%,var(--cyan));-webkit-background-clip:text;background-clip:text;color:transparent}.hero p{font-size:18px;color:var(--muted);max-width:650px;margin:0 0 30px}.actions{display:flex;gap:12px;flex-wrap:wrap}.btn{display:inline-flex;align-items:center;gap:9px;padding:11px 16px;border-radius:10px;border:1px solid #2a3443;background:#111722;font-weight:700;font-size:13px}.btn.primary{border-color:transparent;background:linear-gradient(135deg,#72e7f9,#9c83f7);color:#071017}.btn:hover{transform:translateY(-1px);filter:brightness(1.06)}.terminal{border:1px solid var(--line);background:rgba(13,17,24,.88);border-radius:16px;box-shadow:var(--shadow);overflow:hidden}.bar{height:42px;border-bottom:1px solid var(--line);display:flex;align-items:center;justify-content:space-between;padding:0 14px;color:#748095;font:11px ui-monospace,SFMono-Regular,Menlo,monospace}.traffic{display:flex;gap:6px}.traffic b{width:7px;height:7px;border-radius:50%;background:#374151}.filetab{color:#b9c3d0}.code{padding:18px 20px;font:12px/1.85 ui-monospace,SFMono-Regular,Menlo,monospace;min-height:270px;color:#aeb8c7}.ln{display:inline-block;width:26px;color:#3e4a5d;user-select:none}.kw{color:#c4a7ff}.fn{color:#73e4f4}.str{color:#9ee6b5}.cm{color:#59667a}.termline{border-top:1px solid var(--line);padding:14px 20px;font:11px ui-monospace,SFMono-Regular,Menlo,monospace;color:#91a0b4}.termline strong{color:var(--green)}section{padding:54px 0}.section-head{display:flex;justify-content:space-between;align-items:end;margin-bottom:22px}.section-head h2{font-size:28px;letter-spacing:-.04em;margin:0}.section-head p{color:var(--muted);margin:0}.grid{display:grid;grid-template-columns:repeat(4,1fr);gap:12px}.card{background:linear-gradient(180deg,rgba(16,22,32,.92),rgba(11,15,21,.92));border:1px solid var(--line);border-radius:14px;padding:20px;min-height:180px}.icon{font:11px ui-monospace,SFMono-Regular,Menlo,monospace;color:var(--cyan);margin-bottom:26px}.card h3{margin:0 0 8px;font-size:15px}.card p{margin:0;color:var(--muted);font-size:13px}.ide{border:1px solid var(--line);border-radius:16px;overflow:hidden;background:#090d13;box-shadow:var(--shadow)}.ide-top{height:46px;border-bottom:1px solid var(--line);display:flex;align-items:center;gap:18px;padding:0 14px;font:11px ui-monospace,SFMono-Regular,Menlo,monospace;color:#778397}.ide-brand{font-weight:800;color:#dce5ee}.ide-body{display:grid;grid-template-columns:190px 1fr 250px;min-height:360px}.explorer{border-right:1px solid var(--line);padding:15px}.explorer h4{margin:0 0 13px;color:#69768a;font:10px ui-monospace,SFMono-Regular,Menlo,monospace;text-transform:uppercase}.tree{display:grid;gap:8px;color:#8d9aae;font:11px ui-monospace,SFMono-Regular,Menlo,monospace}.tree .active{color:#e7eef7;background:#151c27;border-radius:6px;padding:5px 7px}.editor{padding:18px}.review{border-left:1px solid var(--line);padding:16px}.review h4{margin:0 0 14px;font-size:12px}.pill{display:inline-flex;padding:4px 7px;border-radius:6px;background:#14251e;color:var(--green);font:10px ui-monospace,SFMono-Regular,Menlo,monospace}.check{padding:12px 0;border-bottom:1px solid #1a2230;color:#8996a8;font-size:11px}.check b{display:block;color:#d6dee8;margin-bottom:3px}.flow{display:grid;grid-template-columns:repeat(5,1fr);gap:8px;align-items:center}.step{border:1px solid var(--line);background:#0d1219;border-radius:12px;padding:17px}.step small{font:10px ui-monospace,SFMono-Regular,Menlo,monospace;color:#617086}.step strong{display:block;margin-top:8px;font-size:12px}.arrow{text-align:center;color:#4b586a}.footer{border-top:1px solid rgba(255,255,255,.07);padding:26px 0 36px;color:#69768a;font-size:12px;display:flex;justify-content:space-between;gap:20px}.footer a{color:#aab5c4}@media(max-width:900px){.hero{grid-template-columns:1fr;gap:34px}.grid{grid-template-columns:repeat(2,1fr)}.ide-body{grid-template-columns:150px 1fr}.review{display:none}.flow{grid-template-columns:1fr}.arrow{display:none}.navlinks a:not(.status){display:none}}@media(max-width:560px){.wrap{width:min(100% - 24px,1180px)}.hero{padding-top:58px}.hero h1{font-size:54px}.hero p{font-size:16px}.grid{grid-template-columns:1fr}.explorer{display:none}.ide-body{grid-template-columns:1fr}.footer{flex-direction:column}.nav{height:62px}}
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <nav class="nav">
+      <a class="brand" href="https://velclaw.cfd"><span class="mark"><i></i></span><span>Zvelclaw</span></a>
+      <div class="navlinks"><a href="#workspace">Workspace</a><a href="#engine">Engine</a><a href="https://github.com/Velclaw/zvelclaw-agent">GitHub</a><span class="status"><span class="dot"></span>Pages Preview</span></div>
+    </nav>
+
+    <main>
+      <section class="hero">
+        <div>
+          <span class="eyebrow"><span class="dot"></span> AI CODING WORKSPACE · STATIC PREVIEW</span>
+          <h1><span class="gradient">Zvelclaw</span><br>builds with you.</h1>
+          <p>An AI coding IDE designed around a tight loop: understand the repository, propose a patch, review the diff, build it, and fix what fails.</p>
+          <div class="actions"><a class="btn primary" href="https://velclaw.cfd">Open Production IDE →</a><a class="btn" href="https://github.com/Velclaw/zvelclaw-agent">View Repository ↗</a></div>
+        </div>
+        <div class="terminal">
+          <div class="bar"><span class="traffic"><b></b><b></b><b></b></span><span class="filetab">agent.ts</span><span>zvelclaw</span></div>
+          <div class="code"><div><span class="ln">01</span><span class="kw">import</span> { defineAgent } <span class="kw">from</span> <span class="str">"eve"</span>;</div><div><span class="ln">02</span></div><div><span class="ln">03</span><span class="kw">export default</span> defineAgent({</div><div><span class="ln">04</span>&nbsp;&nbsp;model: <span class="str">"gpt-5.1-codex-max"</span>,</div><div><span class="ln">05</span>&nbsp;&nbsp;workspace: <span class="str">"github"</span>,</div><div><span class="ln">06</span>&nbsp;&nbsp;workflow: [<span class="str">"plan"</span>, <span class="str">"review"</span>, <span class="str">"build"</span>],</div><div><span class="ln">07</span>});</div><div><span class="ln">08</span></div><div><span class="ln">09</span><span class="cm">// AI-native coding loop</span></div></div>
+          <div class="termline"><strong>✓ BUILD</strong> &nbsp; typecheck passed · production build ready</div>
+        </div>
+      </section>
+
+      <section id="workspace">
+        <div class="section-head"><div><h2>Inside the workspace</h2><p>Same visual language as the Zvelclaw IDE.</p></div></div>
+        <div class="ide">
+          <div class="ide-top"><span class="ide-brand">ZVELCLAW IDE</span><span>Velclaw/zvelclaw-agent</span><span>main</span><span style="margin-left:auto">Apply · Review · Agent · Build</span></div>
+          <div class="ide-body">
+            <aside class="explorer"><h4>Explorer</h4><div class="tree"><span>⌄ app</span><span>⌄ api</span><span class="active">◻ route.ts</span><span>◻ page.tsx</span><span>⌄ components</span><span>⌄ lib</span><span>◻ package.json</span></div></aside>
+            <div class="editor"><div class="code" style="padding:0"><div><span class="ln">18</span><span class="kw">const</span> result = <span class="kw">await</span> runAgent(task);</div><div><span class="ln">19</span></div><div><span class="ln">20</span><span class="kw">return</span> Response.json({</div><div><span class="ln">21</span>&nbsp;&nbsp;summary: result.summary,</div><div><span class="ln">22</span>&nbsp;&nbsp;files: result.files,</div><div><span class="ln">23</span>&nbsp;&nbsp;nextStep: <span class="str">"review"</span></div><div><span class="ln">24</span>});</div><div><span class="ln">25</span></div><div><span class="ln">26</span><span class="cm">// changes stay isolated until explicitly applied</span></div></div></div>
+            <aside class="review"><h4>AI Review <span class="pill">READY</span></h4><div class="check"><b>Architecture</b>Minimal change set; existing APIs preserved.</div><div class="check"><b>Safety</b>Protected branch policy respected.</div><div class="check"><b>Build</b>CI workflow available on the isolated branch.</div></aside>
+          </div>
+        </div>
+      </section>
+
+      <section id="engine">
+        <div class="section-head"><div><h2>The coding loop</h2><p>From task to verified patch without losing control.</p></div></div>
+        <div class="flow"><div class="step"><small>01</small><strong>Understand</strong></div><div class="arrow">→</div><div class="step"><small>02</small><strong>Plan & Review</strong></div><div class="arrow">→</div><div class="step"><small>03</small><strong>Apply → Build → Fix</strong></div></div>
+      </section>
+
+      <section>
+        <div class="grid">
+          <article class="card"><div class="icon">01 / CODE ENGINE</div><h3>Repository-aware Agent</h3><p>Reads the selected files and proposes concrete, minimal changes instead of inventing project context.</p></article>
+          <article class="card"><div class="icon">02 / REVIEW</div><h3>AI Diff Review</h3><p>Inspect the proposed patch before anything reaches the isolated working branch.</p></article>
+          <article class="card"><div class="icon">03 / BUILD</div><h3>Real CI Feedback</h3><p>Pushes trigger the repository workflow for typecheck and production build verification.</p></article>
+          <article class="card"><div class="icon">04 / FIX LOOP</div><h3>Failure → Fix</h3><p>Analyze failed CI, propose a repair, review it, apply it, and run the build again.</p></article>
+        </div>
+      </section>
+    </main>
+
+    <footer class="footer"><span>Zvelclaw · GitHub Pages UI Preview</span><span><a href="https://velclaw.cfd">velclaw.cfd</a> · <a href="https://github.com/Velclaw/zvelclaw-agent">Velclaw/zvelclaw-agent</a></span></footer>
+  </div>
+</body>
+</html>
