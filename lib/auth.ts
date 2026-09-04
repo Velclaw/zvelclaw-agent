@@ -2,26 +2,25 @@ import { betterAuth } from "better-auth";
 
 const SESSION_MAX_AGE_SECONDS = 8 * 60 * 60;
 const DEVELOPMENT_ALLOWED_HOSTS = ["localhost:*", "127.0.0.1:*"];
+const IS_PRODUCTION_BUILD = process.env.NEXT_PHASE === "phase-production-build";
 
 function getAllowedHosts(): string[] {
-  if (process.env.NODE_ENV === "development") {
-    return DEVELOPMENT_ALLOWED_HOSTS;
-  }
+  if (process.env.NODE_ENV === "development") return DEVELOPMENT_ALLOWED_HOSTS;
   const deploymentHosts = [
     process.env.VERCEL_URL,
     process.env.VERCEL_BRANCH_URL,
     process.env.VERCEL_PROJECT_PRODUCTION_URL,
+    process.env.NEXT_PUBLIC_APP_URL,
   ].filter((host): host is string => Boolean(host));
-  if (deploymentHosts.length === 0) {
-    throw new Error("No trusted deployment hosts are configured");
-  }
-  return Array.from(new Set(deploymentHosts));
+  if (deploymentHosts.length > 0) return Array.from(new Set(deploymentHosts));
+  if (IS_PRODUCTION_BUILD) return DEVELOPMENT_ALLOWED_HOSTS;
+  throw new Error("No trusted deployment hosts are configured");
 }
 
 function requireEnvironmentVariable(name: string): string {
   const value = process.env[name];
   if (value) return value;
-  if (process.env.NODE_ENV === "development") return `development-${name}`;
+  if (process.env.NODE_ENV === "development" || IS_PRODUCTION_BUILD) return `build-placeholder-${name}`;
   throw new Error(`Missing required environment variable: ${name}`);
 }
 
