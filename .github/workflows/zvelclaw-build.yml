@@ -71,23 +71,21 @@ jobs:
 
       - name: Link Vercel project
         env:
-          VERCEL_ORG_ID: ${{ secrets.VERCEL_ORG_ID }}
+          VERCEL_TOKEN: ${{ secrets.VERCEL_TOKEN }}
           VERCEL_PROJECT_ID: ${{ secrets.VERCEL_PROJECT_ID }}
-        run: |
-          mkdir -p .vercel
-          printf '{"orgId":"%s","projectId":"%s"}\n' "$VERCEL_ORG_ID" "$VERCEL_PROJECT_ID" > .vercel/project.json
+        run: vercel link --yes --project="$VERCEL_PROJECT_ID" --scope=velclaw --token="$VERCEL_TOKEN"
 
       - name: Pull Vercel production configuration
         env:
           VERCEL_TOKEN: ${{ secrets.VERCEL_TOKEN }}
-        run: vercel pull --yes --environment=production --token="$VERCEL_TOKEN"
+        run: vercel pull --yes --environment=production --scope=velclaw --token="$VERCEL_TOKEN"
 
       - name: Build with Vercel
         env:
           VERCEL_TOKEN: ${{ secrets.VERCEL_TOKEN }}
-        run: vercel build --prod --token="$VERCEL_TOKEN"
+        run: vercel build --prod --scope=velclaw --token="$VERCEL_TOKEN"
 
       - name: Deploy prebuilt production
         env:
           VERCEL_TOKEN: ${{ secrets.VERCEL_TOKEN }}
-        run: vercel deploy --prebuilt --prod --token="$VERCEL_TOKEN" --yes
+        run: vercel deploy --prebuilt --prod --scope=velclaw --token="$VERCEL_TOKEN" --yes
