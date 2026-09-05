@@ -3,6 +3,7 @@ name: Zvelclaw Build
 on:
   push:
     branches:
+      - main
       - "feature/**"
       - "fix/**"
       - "chore/**"
@@ -11,7 +12,7 @@ on:
   workflow_dispatch:
     inputs:
       ref:
-        description: "Branch or commit to verify"
+        description: "Branch or commit to verify/deploy"
         required: true
         default: "main"
 
@@ -50,3 +51,47 @@ jobs:
 
       - name: Production build
         run: pnpm build
+
+  deploy-vercel:
+    name: Deploy production to Vercel
+    needs: verify
+    if: github.ref == 'refs/heads/main'
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    environment: production
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          ref: ${{ github.event.inputs.ref || github.sha }}
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 24
+
+      - name: Install Vercel CLI
+        run: npm install --global vercel@latest
+
+      - name: Link Vercel project
+        env:
+          VERCEL_ORG_ID: ${{ secrets.VERCEL_ORG_ID }}
+          VERCEL_PROJECT_ID: ${{ secrets.VERCEL_PROJECT_ID }}
+        run: |
+          mkdir -p .vercel
+          printf '{"orgId":"%s","projectId":"%s"}\n' "$VERCEL_ORG_ID" "$VERCEL_PROJECT_ID" > .vercel/project.json
+
+      - name: Pull Vercel production configuration
+        env:
+          VERCEL_TOKEN: ${{ secrets.VERCEL_TOKEN }}
+        run: vercel pull --yes --environment=production --token="$VERCEL_TOKEN"
+
+      - name: Build with Vercel
+        env:
+          VERCEL_TOKEN: ${{ secrets.VERCEL_TOKEN }}
+        run: vercel build --prod --token="$VERCEL_TOKEN"
+
+      - name: Deploy prebuilt production
+        env:
+          VERCEL_TOKEN: ${{ secrets.VERCEL_TOKEN }}
+        run: vercel deploy --prebuilt --prod --token="$VERCEL_TOKEN" --yes
