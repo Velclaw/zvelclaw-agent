@@ -1,0 +1,12 @@
+{
+  "platform": "vercel",
+  "project": "zvelclaw",
+  "repository": "Velclaw/zvelclaw-agent",
+  "branch": "main",
+  "framework": "nextjs",
+  "rootDirectory": ".",
+  "buildCommand": "pnpm build",
+  "installCommand": "pnpm install --frozen-lockfile",
+  "outputDirectory": ".next",
+  "productionDomain": "zvelclaw.vercel.app"
+}
