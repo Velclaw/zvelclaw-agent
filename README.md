@@ -1,35 +1,48 @@
-# zvelclaw
+# Zvelclaw
 
-This is an [eve](https://eve.dev) agent bootstrapped with [`eve init`](https://eve.dev/docs/reference/cli#eve-init).
+## Test trang hiện tại
 
-## Getting started
+**[MỞ ZVELCLAW TEST PREVIEW →](https://velclaw.github.io/zvelclaw-agent/)**
 
-First, run the development server:
+Đây là trang test UI hiện tại của Zvelclaw trên GitHub Pages.
+
+- **Test Preview:** https://velclaw.github.io/zvelclaw-agent/
+- **Production:** https://velclaw.cfd
+- **Repository:** https://github.com/Velclaw/zvelclaw-agent
+
+> Lưu ý: GitHub Pages là bản preview tĩnh để kiểm tra giao diện. Các API/server route của Next.js không chạy trên GitHub Pages.
+
+## Zvelclaw IDE
+
+Zvelclaw là AI coding IDE với workflow:
+
+**Understand → Plan → Review → Apply → Build → Fix**
+
+Repo hiện chứa giao diện IDE, repository integration, AI agent route, isolated branches, apply/build workflow và GitHub Pages preview.
+
+## Test nhanh
+
+1. Mở **[Zvelclaw Test Preview](https://velclaw.github.io/zvelclaw-agent/)**.
+2. Kiểm tra giao diện landing/IDE preview.
+3. Nút **Open Production IDE** dẫn tới `https://velclaw.cfd`.
+4. Khi cần xem mã nguồn, quay lại repository này.
+
+## Local development
+
+Install dependencies and start the Next.js development server:
 
 ```bash
-eve dev
+pnpm install
+pnpm dev
 ```
 
-The development TUI opens an interactive session where you can send messages to your agent.
-
-Start by editing `agent/instructions.md` to define the agent's identity, purpose, tone, and response guidelines. Configure its model and runtime behavior in `agent/agent.ts`.
-
-Add capabilities under `agent/`, including tools, connections, channels, skills, subagents, and schedules. eve reloads your changes as you work.
-
-## Learn more
-
-To learn more about eve, explore these resources:
-
-- [eve documentation](https://eve.dev/docs) — learn about eve's features and authoring APIs.
-- [Build an Agent tutorial](https://eve.dev/docs/tutorial/first-agent) — build and deploy an agent step by step.
-- [eve on GitHub](https://github.com/vercel/eve) — view the source and contribute.
-
-## Deploy on Vercel
-
-Deploy your agent to [Vercel](https://vercel.com) from the project root:
+## Build verification
 
 ```bash
-eve deploy
+pnpm exec tsc --noEmit -p tsconfig.json
+pnpm build
 ```
 
-`eve deploy` links a Vercel project if needed and deploys the agent to production. See the [eve deployment documentation](https://eve.dev/docs/guides/deployment/vercel) for authentication, environment variables, and deployment options.
+## GitHub Pages
+
+The static preview is deployed from `pages/` by `.github/workflows/github-pages.yml`.
