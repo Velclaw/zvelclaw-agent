@@ -1,5 +1,5 @@
-import { AuthenticatedAgentIDE } from "./_components/authenticated-agent-ide";
+import { AgentIDE } from "./_components/agent-ide";
 
 export default function Page() {
-  return <AuthenticatedAgentIDE />;
+  return <AgentIDE />;
 }
