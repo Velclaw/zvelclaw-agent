@@ -66,6 +66,9 @@ jobs:
         with:
           node-version: 24
 
+      - name: Setup pnpm
+        run: npm install --global pnpm@10
+
       - name: Install Vercel CLI
         run: npm install --global vercel@latest
 
