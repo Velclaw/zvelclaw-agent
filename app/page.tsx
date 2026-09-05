@@ -1,5 +1,5 @@
-import { AgentIDE } from "./_components/agent-ide";
+import { AuthenticatedAgentChat } from "./_components/authenticated-agent-chat";
 
 export default function Page() {
-  return <AgentIDE />;
+  return <AuthenticatedAgentChat />;
 }
