@@ -1,0 +1,51 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#ffffff">
+  <title>zvelclaw</title>
+  <style>
+    :root{color-scheme:light;--bg:#fff;--fg:#171717;--muted:#737373;--hover:#f5f5f5;--shadow:0 1px 2px rgba(0,0,0,.04),0 10px 30px rgba(0,0,0,.05)}
+    *{box-sizing:border-box}html,body{width:100%;height:100%;margin:0}body{background:var(--bg);color:var(--fg);font:14px/1.5 Inter,ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif}
+    button,textarea{font:inherit}button{border:0;background:none;color:inherit}.app{height:100dvh;display:flex;flex-direction:column;overflow:hidden;background:#fff}
+    .header{position:fixed;top:0;right:0;left:0;height:56px;z-index:10;display:flex;align-items:center;justify-content:center;pointer-events:none}.header-title{max-width:calc(100% - 150px);overflow:hidden;text-overflow:ellipsis;white-space:nowrap;color:var(--muted);font-size:14px}
+    .new-chat{position:absolute;right:24px;top:9px;height:38px;padding:0 14px;display:inline-flex;align-items:center;gap:8px;border-radius:9px;cursor:pointer;pointer-events:auto;color:#525252}.new-chat:hover{background:var(--hover);color:var(--fg)}
+    .new-chat svg,.icon-button svg,.send svg{width:16px;height:16px;stroke:currentColor;fill:none;stroke-width:1.8}
+    .main{min-height:0;flex:1;display:flex;flex-direction:column}.empty{width:100%;max-width:576px;margin:auto;padding:0 24px 10vh;display:flex;flex-direction:column;align-items:center;gap:32px}.brand{margin:0;font-size:48px;line-height:1;font-weight:500;letter-spacing:-.055em}
+    .composer{position:relative;width:100%;border:1px solid #d4d4d4;border-radius:14px;background:#fff;box-shadow:var(--shadow);padding:12px 58px 48px 14px}.composer:focus-within{border-color:#b8b8b8;box-shadow:0 1px 2px rgba(0,0,0,.04),0 12px 36px rgba(0,0,0,.07)}
+    textarea{display:block;width:100%;min-height:26px;max-height:180px;resize:none;outline:0;border:0;background:transparent;color:var(--fg);font-size:15px;line-height:1.55;padding:0}textarea::placeholder{color:#8a8a8a}
+    .composer-actions{position:absolute;right:10px;bottom:10px;left:10px;height:30px;display:flex;align-items:center;justify-content:flex-end;gap:6px}.icon-button{width:30px;height:30px;display:grid;place-items:center;border-radius:8px;color:#737373;cursor:pointer}.icon-button:hover{background:var(--hover);color:var(--fg)}
+    .send{width:30px;height:30px;border-radius:8px;background:#171717;color:#fff;display:grid;place-items:center;cursor:pointer}.send:disabled{background:#e5e5e5;color:#a3a3a3;cursor:default}
+    .conversation{display:none;min-height:0;flex:1;overflow:auto;padding:76px 16px 150px}.conversation-inner{width:100%;max-width:768px;margin:0 auto;display:flex;flex-direction:column;gap:24px}.message{max-width:100%;display:flex}.message.user{justify-content:flex-end}
+    .bubble{max-width:min(85%,680px);padding:10px 14px;border-radius:14px;white-space:pre-wrap;overflow-wrap:anywhere}.user .bubble{background:#f1f1f1}.assistant .bubble{padding-left:0;padding-right:0}
+    .thinking{display:none;color:var(--muted);font-size:14px;align-items:center;gap:8px}.thinking-dot{width:5px;height:5px;border-radius:50%;background:#999;animation:pulse 1s infinite ease-in-out}@keyframes pulse{0%,100%{opacity:.25}50%{opacity:1}}
+    .active-composer{position:fixed;bottom:0;left:50%;z-index:9;width:min(768px,100%);transform:translateX(-50%);padding:16px 16px 24px;background:linear-gradient(to bottom,rgba(255,255,255,0),#fff 35%)}.active-composer .composer{box-shadow:0 1px 2px rgba(0,0,0,.05),0 12px 35px rgba(0,0,0,.08)}
+    @media(max-width:560px){.brand{font-size:42px}.empty{padding-left:12px;padding-right:12px}.new-chat{right:10px}.new-chat span{display:none}.active-composer{padding-left:12px;padding-right:12px}}
+  </style>
+</head>
+<body>
+  <div class="app">
+    <header class="header" id="header" hidden><span class="header-title">zvelclaw</span><button class="new-chat" id="newChat" type="button" aria-label="Start a new chat"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 5v14M5 12h14"/></svg><span>New chat</span></button></header>
+    <main class="main">
+      <section class="empty" id="emptyState">
+        <h1 class="brand">zvelclaw</h1>
+        <form class="composer" id="emptyComposer"><textarea id="emptyInput" rows="1" placeholder="Send a message…" aria-label="Message"></textarea><div class="composer-actions"><button class="icon-button" type="button" id="attachEmpty" aria-label="Attach files"><svg viewBox="0 0 24 24"><path d="m21.4 11.6-8.9 8.9a6 6 0 0 1-8.5-8.5l9.2-9.2a4 4 0 0 1 5.7 5.7L9.7 17.7a2 2 0 0 1-2.8-2.8l8.5-8.5"/></svg></button><button class="send" id="sendEmpty" type="submit" aria-label="Send" disabled><svg viewBox="0 0 24 24"><path d="m5 12 14-7-3 14-4.2-5.1L5 12Z"/><path d="M11.8 13.9 19 5"/></svg></button></div></form>
+      </section>
+      <section class="conversation" id="conversation" aria-live="polite"><div class="conversation-inner" id="messages"></div><div class="thinking" id="thinking"><span class="thinking-dot"></span><span>Thinking</span></div></section>
+    </main>
+    <div class="active-composer" id="activeComposer" hidden><form class="composer" id="chatComposer"><textarea id="chatInput" rows="1" placeholder="Send a message…" aria-label="Message"></textarea><div class="composer-actions"><button class="icon-button" type="button" id="attachChat" aria-label="Attach files"><svg viewBox="0 0 24 24"><path d="m21.4 11.6-8.9 8.9a6 6 0 0 1-8.5-8.5l9.2-9.2a4 4 0 0 1 5.7 5.7L9.7 17.7a2 2 0 0 1-2.8-2.8l8.5-8.5"/></svg></button><button class="send" id="sendChat" type="submit" aria-label="Send" disabled><svg viewBox="0 0 24 24"><path d="m5 12 14-7-3 14-4.2-5.1L5 12Z"/><path d="M11.8 13.9 19 5"/></svg></button></div></form></div>
+  </div>
+  <script>
+    const emptyState=document.getElementById('emptyState'),conversation=document.getElementById('conversation'),messages=document.getElementById('messages'),thinking=document.getElementById('thinking'),header=document.getElementById('header'),activeComposer=document.getElementById('activeComposer'),emptyInput=document.getElementById('emptyInput'),chatInput=document.getElementById('chatInput'),sendEmpty=document.getElementById('sendEmpty'),sendChat=document.getElementById('sendChat');let started=false;
+    function resize(i){i.style.height='auto';i.style.height=Math.min(i.scrollHeight,180)+'px'}function sync(i,b){b.disabled=i.value.trim().length===0}
+    function begin(){if(started)return;started=true;emptyState.style.display='none';conversation.style.display='block';header.hidden=false;activeComposer.hidden=false;chatInput.focus()}
+    function addMessage(text,role){const row=document.createElement('div');row.className='message '+role;const bubble=document.createElement('div');bubble.className='bubble';bubble.textContent=text;row.appendChild(bubble);messages.appendChild(row);conversation.scrollTop=conversation.scrollHeight}
+    function send(i){const text=i.value.trim();if(!text)return;begin();i.value='';resize(i);sync(i,i===emptyInput?sendEmpty:sendChat);addMessage(text,'user');thinking.style.display='flex';conversation.scrollTop=conversation.scrollHeight;setTimeout(()=>{thinking.style.display='none';addMessage('GitHub Pages is a static preview of the original zvelclaw chat interface. The live agent backend is not available on static Pages.','assistant')},550)}
+    emptyInput.addEventListener('input',()=>{resize(emptyInput);sync(emptyInput,sendEmpty)});chatInput.addEventListener('input',()=>{resize(chatInput);sync(chatInput,sendChat)});document.getElementById('emptyComposer').addEventListener('submit',e=>{e.preventDefault();send(emptyInput)});document.getElementById('chatComposer').addEventListener('submit',e=>{e.preventDefault();send(chatInput)});
+    document.getElementById('newChat').addEventListener('click',()=>{started=false;messages.replaceChildren();thinking.style.display='none';conversation.style.display='none';header.hidden=true;activeComposer.hidden=true;emptyState.style.display='flex';emptyInput.value='';resize(emptyInput);sync(emptyInput,sendEmpty);emptyInput.focus()});
+    document.getElementById('attachEmpty').addEventListener('click',()=>alert('File attachments require the live zvelclaw agent.'));document.getElementById('attachChat').addEventListener('click',()=>alert('File attachments require the live zvelclaw agent.'));
+    [emptyInput,chatInput].forEach(i=>i.addEventListener('keydown',e=>{if(e.key==='Enter'&&!e.shiftKey){e.preventDefault();i.form.requestSubmit()}}));resize(emptyInput);
+  </script>
+</body>
+</html>

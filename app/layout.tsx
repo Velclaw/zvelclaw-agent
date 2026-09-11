@@ -20,10 +20,11 @@ const mono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Zvelclaw IDE",
-  description: "Repository-aware AI coding IDE for build, review and code changes.",
+  title: "zvelclaw",
+  description: "A Next.js starter for eve agents with AI Elements.",
 };
 
+// The page and Eve routes validate the generated app's Better Auth session.
 export default function RootLayout({ children }: { readonly children: ReactNode }) {
   return (
     <html className={cn(sans.variable, mono.variable)} lang="en">
